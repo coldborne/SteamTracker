@@ -7,29 +7,28 @@ using Newtonsoft.Json.Linq;
 
 public class SteamApiHelper
 {
-    private static readonly string apiKey;
-    private static readonly string baseUrl;
+    private static readonly string ApiKey;
+    private static readonly string BaseUrl;
 
     static SteamApiHelper()
     {
         IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            .AddJsonFile("steamApiSettings.json", optional: true, reloadOnChange: true);
 
         IConfigurationRoot configuration = builder.Build();
-
-        apiKey = configuration["ApiKey"];
-        baseUrl = configuration["BaseUrl"];
+        
+        ApiKey = configuration["ApiKey"];
+        BaseUrl = configuration["BaseUrl"];
     }
 
     public static async Task<JObject> GetOwnedGamesAsync(string steamId, bool includeAppInfo = true,
         bool includePlayedFreeGames = false)
     {
         string url =
-            $"{baseUrl}/IPlayerService/GetOwnedGames/v1/?key={apiKey}&steamid={steamId}&include_appinfo={includeAppInfo}&include_played_free_games={includePlayedFreeGames}&format=json";
+            $"{BaseUrl}/IPlayerService/GetOwnedGames/v1/?key={ApiKey}&steamid={steamId}&include_appinfo={includeAppInfo}&include_played_free_games={includePlayedFreeGames}&format=json";
         using (HttpClient client = new HttpClient())
         {
-            Console.WriteLine(url);
             var response = await client.GetStringAsync(url);
             return JObject.Parse(response);
         }
@@ -37,7 +36,7 @@ public class SteamApiHelper
 
     public static async Task<JObject> GetUserStatsForGameAsync(string steamId, string appId)
     {
-        string url = $"{baseUrl}/ISteamUserStats/GetUserStatsForGame/v2/?key={apiKey}&steamid={steamId}&appid={appId}";
+        string url = $"{BaseUrl}/ISteamUserStats/GetUserStatsForGame/v2/?key={ApiKey}&steamid={steamId}&appid={appId}";
 
         using (HttpClient client = new HttpClient())
         {
@@ -57,7 +56,7 @@ public class SteamApiHelper
     public static async Task<JObject> GetPlayerAchievementsAsync(string steamId, string appId)
     {
         string url =
-            $"{baseUrl}/ISteamUserStats/GetPlayerAchievements/v1/?key={apiKey}&steamid={steamId}&appid={appId}&l=english";
+            $"{BaseUrl}/ISteamUserStats/GetPlayerAchievements/v1/?key={ApiKey}&steamid={steamId}&appid={appId}&l=english";
 
         using (HttpClient client = new HttpClient())
         {
@@ -86,7 +85,7 @@ public class SteamApiHelper
 
     public static async Task<JObject> GetSchemaForGameAsync(string appId)
     {
-        string url = $"{baseUrl}/ISteamUserStats/GetSchemaForGame/v2/?key={apiKey}&appid={appId}&l=english";
+        string url = $"{BaseUrl}/ISteamUserStats/GetSchemaForGame/v2/?key={ApiKey}&appid={appId}&l=english";
 
         using (HttpClient client = new HttpClient())
         {
@@ -131,7 +130,7 @@ public class SteamApiHelper
 
     public static async Task<JObject> GetPlayerSummariesAsync(string steamId)
     {
-        string url = $"{baseUrl}/ISteamUser/GetPlayerSummaries/v2/?key={apiKey}&steamids={steamId}";
+        string url = $"{BaseUrl}/ISteamUser/GetPlayerSummaries/v2/?key={ApiKey}&steamids={steamId}";
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);
@@ -141,7 +140,7 @@ public class SteamApiHelper
 
     public static async Task<JObject> GetSupportedAPIListAsync()
     {
-        string url = $"{baseUrl}/ISteamWebAPIUtil/GetSupportedAPIList/v1/?key={apiKey}&format=json";
+        string url = $"{BaseUrl}/ISteamWebAPIUtil/GetSupportedAPIList/v1/?key={ApiKey}&format=json";
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);

@@ -1,0 +1,42 @@
+# Ignore Visual Studio temporary files, build results, and
+# User-specific files
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+
+# Rider project files
+.idea/
+.idea/*
+*.iml
+
+# Ignore .NET Core related files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore build results
+*.dll
+*.exe
+*.app
+*.so
+*.dylib
+*.log
+*.pid
+*.coverage
+*.pdb
+*.mdb
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# Ignore the local NuGet repository
+packages/
+
+# Ignore the build directory
+_build/

@@ -129,7 +129,6 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include=".gitignore" />
       <Content Include="steamApiSettings.json" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
